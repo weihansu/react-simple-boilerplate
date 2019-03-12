@@ -1,20 +1,15 @@
-import React, {Component} from 'react';
-
-class Message extends Component {
-  render() {
-    return (
-      <main className="messages">
-        <div id="react-root"></div>
-        <div className="message">
-          <span className="message-username">Anonymous1</span>
-          <span className="message-content">I won't be impressed with technology until I can download food.</span>
-        </div>
-        <div className="message system">
-          Anonymous1 changed their name to nomnom.
-        </div>
-      </main>
-      )
-  }
+const Messages = {
+  currentUser: {name: "Bob"}, // optional. if currentUser is not defined, it means the user is Anonymous
+  messages: [
+    {
+      username: "Bob",
+      content: "Has anyone seen my marbles?",
+    },
+    {
+      username: "Anonymous",
+      content: "No, I think you lost them. You lost your marbles Bob. You lost them for good."
+    }
+  ]
 };
 
-export default Message;
+export default Messages;
