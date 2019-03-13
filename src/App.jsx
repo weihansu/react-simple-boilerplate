@@ -48,6 +48,14 @@ class App extends Component {
     this.socket.addEventListener('open', (e) => {
       console.log('Connected to server')
     })
+
+    // Listen for messages
+    // other way to listen => this.socket.onmessage = (event) => {
+    this.socket.addEventListener('message', (event) => {
+      let dataMessage = JSON.parse(event.data)
+      console.log('RE: ',dataMessage);
+      // code to handle incoming message
+    })
   }
 
   render() {
