@@ -21,7 +21,7 @@ class App extends Component {
         username: this.state.messages.currentUser.name,
         content: e.target.value
       }
-
+      this.socket.send(JSON.stringify(newMessage));
       dataMessages.messages.push(newMessage);
       this.setState({messages: dataMessages})
       e.target.value = '';
@@ -41,6 +41,13 @@ class App extends Component {
       dataMessages.messages.push(newMessage)
       this.setState({messages: dataMessages});
     }, 3000);
+
+    // Create WebSocket connection.
+    this.socket = new WebSocket("ws://localhost:3001");
+    // Connection opened
+    this.socket.addEventListener('open', (e) => {
+      console.log('Connected to server')
+    })
   }
 
   render() {
