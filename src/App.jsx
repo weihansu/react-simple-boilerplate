@@ -11,7 +11,24 @@ class App extends Component {
       currentUser: "Your Name (Optional)",
       messages: dataMessages
     };
+    this.handleChange = this.handleChange.bind(this);
   }
+
+  handleChange(e) {
+    if (e.keyCode === 13) {
+
+      const newMessage = {
+        username: this.state.messages.currentUser.name,
+        content: e.target.value
+      }
+
+      dataMessages.messages.push(newMessage);
+      this.setState({messages: dataMessages})
+      e.target.value = '';
+
+    }
+  }
+
   componentDidMount() {
     console.log("componentDidMount <App />");
     setTimeout(() => {
@@ -30,7 +47,7 @@ class App extends Component {
     console.log("render <App />");
     const userExist = this.state.messages.currentUser
       ?
-      <ChatBar defaultValue={this.state.messages.currentUser.name}/>
+      <ChatBar defaultValue={this.state.messages.currentUser.name} sendMessage={this.handleChange}/>
       :
       <ChatBar defaultValue={this.state.currentUser}/>;
 
