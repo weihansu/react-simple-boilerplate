@@ -7,17 +7,24 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentUser: "Your Name (Optional)",
+      currentUser: "Anonymous",
       messages: []
     };
-    this.handleChange = this.handleChange.bind(this);
+    this._handleMessage = this._handleMessage.bind(this);
+    this._handleChange = this._handleChange.bind(this);
   }
 
-  handleChange(e) {
+  _handleChange(e) {
+    this.setState({
+      currentUser: e.target.value
+    })
+  }
+
+  _handleMessage(e) {
     if (e.keyCode === 13) {
 
       const newMessage = {
-        username: 'Bob',
+        username: this.state.currentUser,
         content: e.target.value
       }
       this.socket.send(JSON.stringify(newMessage));
@@ -57,7 +64,7 @@ class App extends Component {
         <NavBar />
         {(this.state.messages.length > 0) && <Message message={this.state.messages}/>}
 
-        <ChatBar defaultValue={this.state.currentUser} sendMessage={this.handleChange}/>
+        <ChatBar defaultValue={this.state.currentUser} sendMessage={this._handleMessage} sendName={this._handleChange}/>
 
       </div>
     );
