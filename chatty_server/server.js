@@ -2,7 +2,9 @@
 
 const express = require('express');
 const SocketServer = require('ws').Server;
+const uuidv5 = require('uuid/v5');
 const uuidv1 = require('uuid/v1');
+const generateColor = require('string-to-color');
 
 // Set the port to 3001
 const PORT = 3001;
@@ -34,8 +36,14 @@ wss.on('connection', (ws) => {
     let clientMessage = JSON.parse(message);
     let typeMessage = (clientMessage.type === 'postMessage') ? 'incomingMessage':'incomingNotification';
     let parsedMessage = clientMessage.data;
-    parsedMessage.id = uuidv1();
+    const MY_NAMESPACE = '1b671a64-40d5-491e-99b0-da01ff1f3341';
 
+    if (typeMessage === 'incomingMessage') {
+      parsedMessage.id = uuidv5(clientMessage.data.username, MY_NAMESPACE);
+      parsedMessage.color = generateColor(parsedMessage.id);
+    } else {
+      parsedMessage.id = uuidv1();
+    };
 
     wss.clients.forEach(function each(client) {
       client.send(

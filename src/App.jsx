@@ -65,7 +65,6 @@ class App extends Component {
       const serverMessage = JSON.parse(event.data);
       const typeMessage = serverMessage.type;
       const newMessage = serverMessage.data;
-      console.log(serverMessage)
 
       switch (typeMessage) {
         case 'incomingUsers':
