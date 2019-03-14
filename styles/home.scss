@@ -92,3 +92,17 @@ body {
   float: right;
   line-height: 5rem;
 }
+
+.notification {
+  background-color: #fcf8e3;
+  height: 1.5rem;
+  width: 100%;
+  border-radius: 1rem;
+  padding: 0 0.75rem;
+}
+
+.notification-content {
+  line-height: 25px;
+  font-weight: bold;
+  font-style: italic;
+}
