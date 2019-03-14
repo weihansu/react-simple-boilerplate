@@ -9,7 +9,8 @@ class App extends Component {
     this.state = {
       currentUser: "Anonymous",
       oldUser: "Anonymous",
-      messages: []
+      messages: [],
+      totalUsers: 0
     };
     this._handleMessage = this._handleMessage.bind(this);
     this._handleChange = this._handleChange.bind(this);
@@ -64,8 +65,17 @@ class App extends Component {
       const serverMessage = JSON.parse(event.data);
       const typeMessage = serverMessage.type;
       const newMessage = serverMessage.data;
+      console.log(serverMessage)
 
-      this.setState({messages: [newMessage, ...this.state.messages]});
+      switch (typeMessage) {
+        case 'incomingUsers':
+          this.setState({totalUsers: serverMessage.connections});
+          break;
+        default:
+          this.setState({messages: [newMessage, ...this.state.messages]});
+          break;
+      };
+
     });
   }
 
@@ -74,7 +84,7 @@ class App extends Component {
 
     return (
       <div>
-        <NavBar />
+        <NavBar totalUsers={this.state.totalUsers} />
         {(this.state.messages.length > 0) && <Message message={this.state.messages}/>}
         <ChatBar defaultValue={this.state.currentUser} sendMessage={this._handleMessage} sendName={this._handleChange}/>
       </div>
