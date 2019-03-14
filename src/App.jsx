@@ -8,6 +8,7 @@ class App extends Component {
     super(props);
     this.state = {
       currentUser: "Anonymous",
+      oldUser: "Anonymous",
       messages: []
     };
     this._handleMessage = this._handleMessage.bind(this);
@@ -17,18 +18,32 @@ class App extends Component {
   _handleChange(e) {
     this.setState({
       currentUser: e.target.value
-    })
+    });
   }
 
   _handleMessage(e) {
     if (e.keyCode === 13) {
-
       const newMessage = {
         username: this.state.currentUser,
-        content: e.target.value
+        content: e.target.value,
       }
-      this.socket.send(JSON.stringify(newMessage));
+
+      if (this.state.currentUser !== this.state.oldUser) {
+        const noticationMessage = `${this.state.oldUser} changed their name to ${this.state.currentUser}`
+        this.socket.send(JSON.stringify({
+          type: 'postNotification',
+          data: noticationMessage
+        }));
+      }
+
+      this.socket.send(JSON.stringify({
+        type: 'postMessage',
+        data: newMessage
+      }));
       e.target.value = '';
+      this.setState({
+        oldUser: this.state.currentUser
+      })
 
     }
   }
@@ -41,19 +56,17 @@ class App extends Component {
     // Connection opened
     this.socket.addEventListener('open', (e) => {
       console.log('Connected to server')
-    })
+    });
 
     // Listen for messages
     // other way to listen => this.socket.onmessage = (event) => {
     this.socket.addEventListener('message', (event) => {
-      let dataMessage = JSON.parse(event.data)
+      const serverMessage = JSON.parse(event.data);
+      const typeMessage = serverMessage.type;
+      const newMessage = serverMessage.data;
 
-      // code to handle incoming message
-      const newMessage = dataMessage.data;
       this.setState({messages: [newMessage, ...this.state.messages]});
-
-
-    })
+    });
   }
 
   render() {
@@ -63,9 +76,7 @@ class App extends Component {
       <div>
         <NavBar />
         {(this.state.messages.length > 0) && <Message message={this.state.messages}/>}
-
         <ChatBar defaultValue={this.state.currentUser} sendMessage={this._handleMessage} sendName={this._handleChange}/>
-
       </div>
     );
   }
