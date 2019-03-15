@@ -5,11 +5,20 @@ class Message extends Component {
 
   render() {
     console.log("render <MessageList />");
+
     const userMessages = this.props.message.map((message, index) => (
-      <div className="message" key={index}>
+      <div key={index}>
       {!message.username && <Notification notification={message} />}
-      <span className="message-username" style={{color: message.color}}>{message.username}</span>
-      <span className="message-content">{message.content}</span>
+      <div className="message">
+        <span className="message-username" style={{color: message.color}}>{message.username}</span>
+        <span className="message-content">{message.content}</span>
+      </div>
+      {(message.username && message.content.match(/(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/g))
+        &&
+        <div className="message-img">
+          <img src={message.content.match(/(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/g)[0]} />
+        </div>
+      }
       </div>
       )
     );
@@ -18,8 +27,8 @@ class Message extends Component {
       <main className="messages">
         {userMessages}
       </main>
-      )
-  }
+      );
+  };
 };
 
 export default Message;

@@ -41,6 +41,7 @@ wss.on('connection', (ws) => {
     if (typeMessage === 'incomingMessage') {
       parsedMessage.id = uuidv5(clientMessage.data.username, MY_NAMESPACE);
       parsedMessage.color = generateColor(parsedMessage.id);
+      parsedMessage.notification = true;
     } else {
       parsedMessage.id = uuidv1();
     };

@@ -54,10 +54,23 @@ body {
   overflow: hidden;
   margin: 5px;
   padding: 0 10px;
+  height: 20px;
+  width: 20px;
 }
 
 .message-content {
   flex: 8;
+  height: auto;
+}
+
+.message-img {
+  display: flex;
+}
+
+.message-img > img {
+  max-width: 60%;
+  max-height: 29rem;
+  padding-left: 13rem;
 }
 
 .message-username {
