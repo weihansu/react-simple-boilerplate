@@ -30,24 +30,25 @@ cd chatty_server
 npm install
 node server.js
 ```
+=====================
 
-### Static Files
+## Screenshots
 
 You can store static files like images, fonts, etc in the `build` folder.
 
 For example, if you copy a file called my_image.png into the build folder you can access it using `http://localhost:3000/build/my_image.png`.
 
-### Linting
+=====================
 
-This boilerplate project includes React ESLint configuration.
-
-```
-npm run lint
-```
-
-### Dependencies
+## Dependencies
 
 * React
 * Webpack
 * [babel-loader](https://github.com/babel/babel-loader)
 * [webpack-dev-server](https://github.com/webpack/webpack-dev-server)
+
+WebSocket's Server
+* [ws](https://www.npmjs.com/package/ws)
+* [express](https://www.npmjs.com/package/express)
+* [string-to-color](https://www.npmjs.com/package/string-to-color)
+* [uuid](https://www.npmjs.com/package/uuid)
