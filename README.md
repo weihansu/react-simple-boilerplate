@@ -30,15 +30,14 @@ cd chatty_server
 npm install
 node server.js
 ```
-=====================
 
 ## Screenshots
 
-You can store static files like images, fonts, etc in the `build` folder.
+!["Screenshot of first message"](https://github.com/weihansu/react-simple-boilerplate/blob/master/docs/chat-hello.png)
 
-For example, if you copy a file called my_image.png into the build folder you can access it using `http://localhost:3000/build/my_image.png`.
+!["Screenshot of more users"](https://github.com/weihansu/react-simple-boilerplate/blob/master/docs/chat-change-name.png)
 
-=====================
+!["Screenshot of add message with image url"](https://github.com/weihansu/react-simple-boilerplate/blob/master/docs/chat-with-images.png)
 
 ## Dependencies
 
